@@ -47,6 +47,7 @@ endif
 	@$(MAKE) --no-print-directory -C iMX91 -f soc.mak  clean
 	@$(MAKE) --no-print-directory -C iMX95 -f soc.mak  clean
 	@$(MAKE) --no-print-directory -C iMX94 -f soc.mak  clean
+	@$(MAKE) --no-print-directory -C iMX952 -f soc.mak  clean
 
 $(MKIMG): src/build_info.h $(SRCS)
 	@echo "Compiling mkimage_imx8"
