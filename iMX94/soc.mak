@@ -204,9 +204,6 @@ define append_ddrfw_v3
 	@rm -f $(1)-pad $(2).unaligned fw-header.bin fw-header-qb.bin
 endef
 
-a55-oei-ddrfw.bin: $(OEI_A55_DDR_IMG) $(lpddr_imem) $(lpddr_dmem) fw-header.bin $(lpddr_imem_qb) $(lpddr_dmem_qb) fw-header-qb.bin
-	$(call append_ddrfw_v3,$(OEI_A55_DDR_IMG),a55-oei-ddrfw.bin)
-
 m33-oei-ddrfw.bin: $(OEI_M33_DDR_IMG) $(lpddr_imem) $(lpddr_dmem) fw-header.bin $(lpddr_imem_qb) $(lpddr_dmem_qb) fw-header-qb.bin
 	@echo "DDR FW - $(lpddr_imem) $(lpddr_dmem) $(lpddr_imem_qb) $(lpddr_dmem_qb)"
 	$(call append_ddrfw_v3,$(OEI_M33_DDR_IMG),m33-oei-ddrfw.bin)
@@ -302,7 +299,7 @@ fcb.bin: FORCE
 
 .PHONY: clean nightly
 clean:
-	@rm -f $(MKIMG) u-boot-atf-container.img u-boot-spl-ddr-v2.bin m33-oei-ddrfw.bin a55-oei-ddrfw.bin u-boot-hash.bin flash.bin head.hash boot-spl-container.img
+	@rm -f $(MKIMG) u-boot-atf-container.img u-boot-spl-ddr-v2.bin m33-oei-ddrfw.bin u-boot-hash.bin flash.bin head.hash boot-spl-container.img
 	@rm -rf extracted_imgs
 	@echo "imx94 clean done"
 
