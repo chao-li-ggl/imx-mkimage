@@ -860,7 +860,14 @@ int main(int argc, char **argv)
 				}
 				break;
 			case 'Y':
-				param_stack[p_idx++].option = DUMMY_DDR;
+				param_stack[p_idx].option = DUMMY_DDR;
+				if (optind < argc && *argv[optind] != '-') {
+					param_stack[p_idx].entry = (uint32_t) strtoll(argv[optind++], NULL, 0);
+				} else {
+					param_stack[p_idx].entry = 0;
+				}
+				fprintf(stdout, "DDR dummy align: 0x%08" PRIx64 "\n", param_stack[p_idx].entry);
+				p_idx++;
 				break;
 			case 'E':
 				if (soc != IMX9) {

@@ -792,6 +792,7 @@ int build_container_qx_qm_b0(soc_type_t soc, uint32_t sector_size, uint32_t ivt_
 	uint32_t size = 0;
 	uint32_t file_padding = 0;
 	int ret;
+	uint32_t ddr_train_align = sector_size;
 
 	int container = -1;
 	int cont_img_count = 0; /* indexes to arrange the container */
@@ -847,23 +848,39 @@ int build_container_qx_qm_b0(soc_type_t soc, uint32_t sector_size, uint32_t ivt_
 			}
 			check_file(&sbuf, img_sp->filename);
 			tmp_filename = img_sp->filename;
+			if (img_sp->option == OEI) {
+				/**
+				 * Align OEI size and the following DDR training
+				 * data offset to the required alignment
+				 *
+				 * file_off     : points to OEI binary offset within OEM container
+				 * sbuf.st_size : OEI binary size
+				 */
+				uint32_t ddr_train_offset = ALIGN(file_off + sbuf.st_size, ddr_train_align);
+				size = ddr_train_offset - file_off;
+			} else {
+				size = ALIGN(sbuf.st_size, sector_size);
+			}
 			/* the image offset is based on current header */
 			set_image_array_entry(&imx_header.fhdr[container],
 						soc,
 						img_sp,
 						file_off,
-						ALIGN(sbuf.st_size, sector_size),
+						size,
 						tmp_filename,
 						dcd_skip,
 						images_hash);
 			img_sp->src = file_off;
 
-			file_off += ALIGN(sbuf.st_size, sector_size);
+			file_off += size;
 			cont_img_count++;
 			break;
 
-		case DUMMY_V2X:
 		case DUMMY_DDR:
+			ddr_train_align = (img_sp->entry ? img_sp->entry : sector_size);
+			[[fallthrough]];
+
+		case DUMMY_V2X:
 			if (container < 0) {
 				fprintf(stderr, "No container found\n");
 				exit(EXIT_FAILURE);
@@ -897,7 +914,9 @@ int build_container_qx_qm_b0(soc_type_t soc, uint32_t sector_size, uint32_t ivt_
 				}
 				img_sp->src = file_off;
 			}
-			file_off += ALIGN(img_sp->entry, sector_size);
+			file_off += ALIGN(img_sp->entry, ddr_train_align);
+			/* Switch back to default value */
+			ddr_train_align = sector_size;
 			break;
 
 		case SECO:
