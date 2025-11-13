@@ -134,7 +134,7 @@ OEI_DDR_QB_DATA =
 endif
 
 ifneq (,$(wildcard $(OEI_M33_DDR_IMG)))
-OEI_OPT_M33 += -ddr_dummy -oei $(M33_OEI_DDRFW) m33 $(OEI_M33_ENTR_ADDR) $(OEI_M33_LOAD_ADDR)
+OEI_OPT_M33 += -ddr_dummy 0x1000 -oei $(M33_OEI_DDRFW) m33 $(OEI_M33_ENTR_ADDR) $(OEI_M33_LOAD_ADDR)
 OEI_OPT_M33 += -hold 65536 $(OEI_DDR_QB_DATA)
 OEI_IMG_M33 += $(M33_OEI_DDRFW) $(OEI_DDR_QB_DATA)
 endif

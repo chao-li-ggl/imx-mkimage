@@ -75,7 +75,7 @@ M7_IMAGE_XIP_OFFSET ?= 0x131000 # 1st container offset is 0x1000 when boot devic
 
 ifeq ($(LC_REVISION),b0)
 CTNR_VERSION ?= 2 # For i.MX95 B0
-DDR_DUMMY = -ddr_dummy
+DDR_DUMMY = -ddr_dummy 0x1000
 else
 CTNR_VERSION ?= 0
 DDR_DUMMY =
