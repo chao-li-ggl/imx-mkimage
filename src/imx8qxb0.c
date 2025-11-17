@@ -878,7 +878,7 @@ int build_container_qx_qm_b0(soc_type_t soc, uint32_t sector_size, uint32_t ivt_
 
 		case DUMMY_DDR:
 			ddr_train_align = (img_sp->entry ? img_sp->entry : sector_size);
-			[[fallthrough]];
+			/* fall through */
 
 		case DUMMY_V2X:
 			if (container < 0) {
