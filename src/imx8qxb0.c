@@ -1148,9 +1148,11 @@ img_flags_t parse_image_flags(uint32_t flags, char *flag_list, soc_type_t soc)
 			strcat(flag_list, "CORE_V2X_S");
 			break;
 		default:
-			char str[10];
-			sprintf(str, "%d", img_flags.core_id);
-			strcat(flag_list, str);
+			{
+				char temp_str[10];
+				sprintf(temp_str, "%d", img_flags.core_id);
+				strcat(flag_list, temp_str);
+			}
 			break;
 		}
 	} else {
@@ -1307,7 +1309,10 @@ void print_image_array_fields(flash_header_v3_t *container_hdrs, soc_type_t soc,
 			strcpy(img_name, "Secondary V2X FW image");
 			break;
 		case 0xD:
-			strcpy(img_name, "V2X ROM Patch image");
+			if (soc == IMX9)
+				strcpy(img_name, "DDR QB Dummy image");
+			else
+				strcpy(img_name, "V2X ROM Patch image");
 			break;
 		case 0xE:
 			strcpy(img_name, "V2X Dummy image");
