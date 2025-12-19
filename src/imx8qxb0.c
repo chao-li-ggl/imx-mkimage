@@ -1123,6 +1123,12 @@ img_flags_t parse_image_flags(uint32_t flags, char *flag_list, soc_type_t soc)
 		case CORE_ULP_CM33:
 			strcat(flag_list, "CORE_CM33");
 			break;
+		case CORE_M7_0:
+			strcat(flag_list, "CORE_M7_0");
+			break;
+		case CORE_M7_1:
+			strcat(flag_list, "CORE_M7_1");
+			break;
 		case CORE_ULP_ELE:
 			strcat(flag_list, "CORE_ELE");
 			break;
@@ -1135,8 +1141,16 @@ img_flags_t parse_image_flags(uint32_t flags, char *flag_list, soc_type_t soc)
 			else
 				strcat(flag_list, "CORE_CA35");
 			break;
+		case CORE_V2X_P:
+			strcat(flag_list, "CORE_V2X_P");
+			break;
+		case CORE_V2X_S:
+			strcat(flag_list, "CORE_V2X_S");
+			break;
 		default:
-			strcat(flag_list, "Invalid core id");
+			char str[10];
+			sprintf(str, "%d", img_flags.core_id);
+			strcat(flag_list, str);
 			break;
 		}
 	} else {
@@ -1246,6 +1260,10 @@ void print_image_array_fields(flash_header_v3_t *container_hdrs, soc_type_t soc,
 						strcpy(img_name, "Bootloader");
 				else if ((img_flags.core_id == CORE_ULP_CM33))
 					strcpy(img_name, "M33");
+				else if ((img_flags.core_id == CORE_M7_0))
+					strcpy(img_name, "M7_0");
+				else if ((img_flags.core_id == CORE_M7_1))
+					strcpy(img_name, "M7_1");
 
 			} else {
 				if (img_flags.core_id == CORE_SC)
