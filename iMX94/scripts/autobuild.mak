@@ -6,6 +6,12 @@ else
 AT := @
 endif
 
+ifeq ($(LC_REVISION),a0)
+BRD_PRE=-a0
+else
+BRD_PRE=
+endif
+
 # Aliases
 nightly : nightly_evk
 nightly_mek: nightly_evk
@@ -18,7 +24,7 @@ nightly_mx943evk19lp4: nightly_mx943-19x19-lpddr4-evk
 nightly_mx943evk15: nightly_mx943-15x15-lpddr4-evk
 
 # MX943 19x19 LPDDR5 EVK
-nightly_mx943-19x19-lpddr5-evk: BOARD = $(CPU)-19x19-$(DDR)-evk
+nightly_mx943-19x19-lpddr5-evk: BOARD = $(CPU)$(BRD_PRE)-19x19-$(DDR)-evk
 nightly_mx943-19x19-lpddr5-evk: DTB = imx943-19x19-evk
 nightly_mx943-19x19-lpddr5-evk: CPU = imx943
 nightly_mx943-19x19-lpddr5-evk: DDR = lpddr5
@@ -29,7 +35,7 @@ nightly_mx943-19x19-lpddr5-evk: M33S_FILE = imx943evk_cm33_core1_TCM_power_mode_
 nightly_mx943-19x19-lpddr5-evk: core_files
 
 # MX943 19x19 LPDDR4X EVK
-nightly_mx943-19x19-lpddr4-evk: BOARD = $(CPU)-19x19-lpddr4-evk
+nightly_mx943-19x19-lpddr4-evk: BOARD = $(CPU)$(BRD_PRE)-19x19-lpddr4-evk
 nightly_mx943-19x19-lpddr4-evk: DTB = imx943-19x19-evk
 nightly_mx943-19x19-lpddr4-evk: CPU = imx943
 nightly_mx943-19x19-lpddr4-evk: DDR = lpddr4x
@@ -40,7 +46,7 @@ nightly_mx943-19x19-lpddr4-evk: M33S_FILE = imx943evk_cm33_core1_TCM_power_mode_
 nightly_mx943-19x19-lpddr4-evk: core_files
 
 # MX943 15x15 LPDDR4X EVK
-nightly_mx943-15x15-lpddr4-evk: BOARD = $(CPU)-15x15-lpddr4-evk
+nightly_mx943-15x15-lpddr4-evk: BOARD = $(CPU)$(BRD_PRE)-15x15-lpddr4-evk
 nightly_mx943-15x15-lpddr4-evk: DTB = imx943-15x15-evk
 nightly_mx943-15x15-lpddr4-evk: CPU = imx943
 nightly_mx943-15x15-lpddr4-evk: DDR = lpddr4x
