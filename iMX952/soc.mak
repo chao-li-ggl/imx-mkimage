@@ -2,7 +2,7 @@ MKIMG = ../mkimage_imx8
 
 CC ?= gcc
 REV ?= A0
-OEI ?= NO
+OEI ?= YES
 MSEL ?= 0
 CFLAGS ?= -O2 -Wall -std=c99
 INCLUDE = ./lib
