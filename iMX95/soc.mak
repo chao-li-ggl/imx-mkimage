@@ -366,6 +366,7 @@ flash_lpboot_sm_all_stmm_capsule: overlay flash_lpboot_sm_all
 		--private-key CRT.key \
 		--certificate CRT.crt \
 		--index 1 --instance 0 \
+		--fw-version 26 \
 		capsule1.bin
 endif
 

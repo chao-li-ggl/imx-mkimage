@@ -274,6 +274,7 @@ flash_evk_stmm_capsule: overlay flash_evk
 		--private-key CRT.key \
 		--certificate CRT.crt \
 		--index 1 --instance 0 \
+		--fw-version 26 \
 		capsule1.bin
 
 flash_evk_stmm: flash_evk

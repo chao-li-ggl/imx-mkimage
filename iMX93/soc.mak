@@ -207,6 +207,7 @@ flash_singleboot_stmm_capsule: overlay flash_singleboot
 		--private-key CRT.key \
 		--certificate CRT.crt \
 		--index 1 --instance 0 \
+		--fw-version 26 \
 		capsule1.bin
 
 flash_singleboot_stmm: flash_singleboot_stmm_capsule
