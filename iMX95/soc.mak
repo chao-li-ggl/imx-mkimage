@@ -73,12 +73,12 @@ M7_XIP_ADDR_ALIAS ?= 0x38132000 # Point entry of m7 in flexspi0 nor flash
 M7_IMAGE_XIP_OFFSET ?= 0x131000 # 1st container offset is 0x1000 when boot device is flexspi0 nor
 				# flash, actually the m7_image.bin is in 0x131000 + 0x1000 = 0x132000.
 
-ifeq ($(LC_REVISION),b0)
-CTNR_VERSION ?= 2 # For i.MX95 B0
-DDR_DUMMY = -ddr_dummy 0x1000
-else
+ifeq ($(LC_REVISION),a1)
 CTNR_VERSION ?= 0
 DDR_DUMMY =
+else
+CTNR_VERSION ?= 2 # For i.MX95 B0
+DDR_DUMMY = -ddr_dummy 0x1000
 endif
 
 GDET ?= 0
