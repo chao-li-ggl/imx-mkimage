@@ -175,7 +175,7 @@ OEI_OPT_M33 += -hold 65536 $(OEI_DDR_QB_DATA)
 OEI_IMG_M33 += $(M33_OEI_DDRFW) $(OEI_DDR_QB_DATA)
 endif
 
-ifneq ($(LC_REVISION),b0) # No need to include M7 TCM init OEI for B0
+ifeq ($(LC_REVISION),a1) # No need to include M7 TCM init OEI for B0
 ifneq (,$(wildcard $(OEI_A55_TCM_IMG)))
 OEI_OPT_A55 += -oei $(OEI_A55_TCM_IMG) a55 $(OEI_A55_ENTR_ADDR) $(OEI_A55_LOAD_ADDR)
 OEI_IMG_A55 += $(OEI_A55_TCM_IMG)
@@ -202,7 +202,7 @@ else
 ifeq ($(V2X),YES)
 $(error "V2X without OEI is not allowed as V2X FW resides in DDR")
 endif
-ifneq ($(LC_REVISION),b0)
+ifeq ($(LC_REVISION),a1)
 V2X_DUMMY_NPUSRAM = 0x4AA00000
 V2X_DUMMY = -dummy ${V2X_DUMMY_NPUSRAM}
 #A0/A1 needs M7 OEI even in OEI=NO case when trying to load M7 TCM image
@@ -482,7 +482,7 @@ flash_all_ap: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M7_IMG) $(AP_IMG) $(OEI_IMG_M33)
 flash_ele: $(MKIMG) ahabfw.bin
 	./$(MKIMG) -soc IMX9 -cntr_version $(CTNR_VERSION) $(MMC_FAST_HASH) -c -ele ahabfw.bin -out flash.bin
 
-ifneq ($(LC_REVISION),b0)
+ifeq ($(LC_REVISION),a1)
 prepare_kernel_chunks: Image
 	./$(SPLIT_KERNEL) Image $(KERNEL_ADDR) 0x700000
 
