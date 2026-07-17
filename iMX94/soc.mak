@@ -87,7 +87,6 @@ lpddr_dmem_qb = $(FW_PRE)_dmem_qb$(LPDDR_FW_VERSION).bin
 GDET ?= 0
 VDET ?= 0
 AGDET ?= 0
-FDET ?= 0
 TMPSNS ?= 0
 
 ifeq ($(shell test $(GDET) -gt 2 && echo true), true)
@@ -102,10 +101,6 @@ ifeq ($(shell test $(AGDET) -gt 3 && echo true), true)
 $(error "AGDET value should be 0 to 3, 0 is disabled, 1 is enabled but not in suspend, 2 is enabled in ELE call, 3 is enabled and kept enabled in suspend")
 endif
 
-ifeq ($(shell test $(FDET) -gt 1 && echo true), true)
-$(error "FDET value should be 0 to 1, 0 is disabled, 1 is enabled but not in suspend")
-endif
-
 ifeq ($(shell test $(TMPSNS) -gt 1 && echo true), true)
 $(error "TMPSNS value should be 0 to 1, 0 is disabled in suspend, 1 is enabled in suspend")
 endif
@@ -113,9 +108,8 @@ endif
 FLAG_GDET = $(shell echo $$(( $(GDET) << 20 )))
 FLAG_VDET = $(shell echo $$(( $(VDET) << 22 )))
 FLAG_AGDET = $(shell echo $$(( $(AGDET) << 24 )))
-FLAG_FDET = $(shell echo $$(( $(FDET) << 26 )))
 FLAG_TMPSNS = $(shell echo $$(( $(TMPSNS) << 27 )))
-FLAG_DET_ALL = $(shell echo $$(( $(FLAG_GDET) + $(FLAG_VDET) + $(FLAG_AGDET) + $(FLAG_FDET) + $(FLAG_TMPSNS) )))
+FLAG_DET_ALL = $(shell echo $$(( $(FLAG_GDET) + $(FLAG_VDET) + $(FLAG_AGDET) + $(FLAG_TMPSNS) )))
 
 ifneq ($(FLAG_DET_ALL),0)
 FLAG_DEF = 0x10
