@@ -26,7 +26,7 @@ endif
 
 LC_REVISION = $(shell echo $(REV) | tr ABC abc)
 
-AHAB_IMG ?= mx943$(LC_REVISION)-ahab-container.img
+AHAB_IMG ?= mx94$(LC_REVISION)-ahab-container.img
 SPL_LOAD_ADDR_M33_VIEW ?= 0x20480000 	# For lpboot, SCMI SPL
 ATF_LOAD_ADDR ?= 0x8A200000
 UBOOT_LOAD_ADDR ?= 0x90200000
