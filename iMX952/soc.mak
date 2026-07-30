@@ -58,6 +58,7 @@ M33_IMAGE_XIP_OFFSET ?= 0x31000 # 1st container offset is 0x1000 when boot devic
 				# flash, actually the m33_image.bin is in 0x31000 + 0x1000 = 0x32000.
 M7_TCM_ADDR ?= 0x0
 M7_TCM_ADDR_ALIAS ?= 0x303C0000
+M7_TCM_ADDR_ACORE_VIEW ?= 0x203C0000
 M7_DDR_ADDR ?= 0x80000000
 M7_XIP_ADDR ?= 0x28132000 # Point entry of m7 in flexspi0 nor flash
 M7_XIP_ADDR_ALIAS ?= 0x38132000 # Point entry of m7 in flexspi0 nor flash
@@ -433,11 +434,11 @@ flash_sentinel: $(MKIMG) ahabfw.bin
 flash_kernel: $(MKIMG) Image $(KERNEL_DTB)
 	./$(MKIMG) -soc IMX9 -cntr_version 2 $(MMC_FAST_HASH) -c -ap Image a55 $(KERNEL_ADDR) --data $(KERNEL_DTB) a55 $(KERNEL_DTB_ADDR) -out flash.bin
 
-flash_bootaux_cntr: $(MKIMG) $(MCU_IMG)
-	./$(MKIMG) -soc IMX9 -cntr_version 2 $(MMC_FAST_HASH) -c -m33 $(MCU_IMG) 0 $(MCU_TCM_ADDR) $(MCU_TCM_ADDR_ACORE_VIEW) -out flash.bin
+flash_bootaux_cntr: $(MKIMG) $(M7_IMG)
+	./$(MKIMG) -soc IMX9 -cntr_version 2 -c -m7 $(M7_IMG) 0 $(M7_TCM_ADDR) $(M7_TCM_ADDR_ACORE_VIEW) -out flash.bin
 
-flash_bootaux_cntr_xip: $(MKIMG) $(MCU_IMG)
-	./$(MKIMG) -soc IMX9 -cntr_version 2 -c -fileoff $(M33_IMAGE_XIP_OFFSET) -m33 $(MCU_IMG) 0 $(MCU_XIP_ADDR) -out flash.bin
+flash_bootaux_cntr_xip: $(MKIMG) $(M7_IMG)
+	./$(MKIMG) -soc IMX9 -cntr_version 2 -c -fileoff $(M7_IMAGE_XIP_OFFSET) -m7 $(M7_IMG) 0 $(M7_XIP_ADDR) $(M7_XIP_ADDR) -out flash.bin
 
 parse_container: $(MKIMG) flash.bin
 	./$(MKIMG) -soc IMX9 -cntr_version 2 -parse flash.bin

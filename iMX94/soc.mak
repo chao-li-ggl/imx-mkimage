@@ -52,13 +52,16 @@ V2X_DDR = 0x8b000000
 
 M70_TCM_ADDR ?= 0x0
 M70_TCM_ADDR_ALIAS ?= 0x303C0000
+M70_TCM_ADDR_ACORE_VIEW ?= 0x203C0000
 M70_DDR_ADDR ?= 0x80000000
 
 M71_TCM_ADDR ?= 0x0
 M71_TCM_ADDR_ALIAS ?= 0x302C0000
+M71_TCM_ADDR_ACORE_VIEW ?= 0x202C0000
 
 M33S_TCM_ADDR ?= 0x1FFC0000
 M33S_TCM_ADDR_ALIAS ?= 0x309C0000
+M33S_TCM_ADDR_ACORE_VIEW ?= 0x209C0000
 M33S_DDR_ADDR ?= 0x86000000
 
 MCU_IMG = m33_image.bin
@@ -619,6 +622,15 @@ flash_jailhouse: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M33S_IMG) $(M70_IMG) u-boot-a
 		   -m7 $(M70_IMG) 0 $(M70_TCM_ADDR) $(M70_TCM_ADDR_ALIAS)  \
 		   $(V2X_DUMMY) -ap $(SPL_A55_IMG) a55 $(SPL_LOAD_ADDR_M33_VIEW) -out flash.bin
 	$(call append_container,u-boot-atf-container.img,1)
+
+flash_bootaux_cntr_m70: $(MKIMG) $(M70_IMG)
+	./$(MKIMG) -soc IMX9 -cntr_version 2 -c -m7 $(M70_IMG) 0 $(M70_TCM_ADDR) $(M70_TCM_ADDR_ACORE_VIEW) -out flash.bin
+
+flash_bootaux_cntr_m71: $(MKIMG) $(M71_IMG)
+	./$(MKIMG) -soc IMX9 -cntr_version 2 -c -m7 $(M71_IMG) 1 $(M71_TCM_ADDR) $(M71_TCM_ADDR_ACORE_VIEW) -out flash.bin
+
+flash_bootaux_cntr_m33s: $(MKIMG) $(M33S_IMG)
+	./$(MKIMG) -soc IMX9 -cntr_version 2 -c -m33 $(M33S_IMG) 1 $(M33S_TCM_ADDR) $(M33S_TCM_ADDR_ACORE_VIEW) -out flash.bin
 
 parse_container: $(MKIMG) flash.bin
 	./$(MKIMG) -soc IMX9 -cntr_version 2 -parse flash.bin
