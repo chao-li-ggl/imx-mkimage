@@ -1,0 +1,128 @@
+46434642 /* Tag, ASCII "FCFB" */
+00000156 /* Version */
+00000000
+0003030c /* columnAddressWidth=12, dataSetupTime=3, dataHoldTime=3, readSampleClkSrc=0 */
+00000000 /* deviceModeCfgEnable */
+00000000 /* deviceModeSeq */
+00000000 /* deviceModeArg */
+00000000 /* configCmdEnable */
+00000000 /* configCmdSeqs[0] */
+00000000 /* configCmdSeqs[1] */
+00000000 /* configCmdSeqs[2] */
+00000000 /* configCmdSeqs[3] */
+00000000 /* configCmdArgs[0] */
+00000000 /* configCmdArgs[1] */
+00000000 /* configCmdArgs[2] */
+00000000 /* configCmdArgs[3] */
+00000000 /* controllerMiscOption */
+02010100 /* deviceType=2(SPI-NAND), sflashPadType=1, serialClkFreq=1(20MHz), lutCustomSeqEnable=0 */
+00000000
+00000000
+00000008 /* sflashA1Size: flash size in bytes, e.g. 0x08000000=128MB */
+00000000 /* sflashA2Size */
+00000000 /* sflashB1Size */
+00000000 /* sflashB2Size */
+00000000 /* csPadSettingOverride */
+00000000 /* sclkPadSettingOverride */
+00000000 /* dataPadSettingOverride */
+00000000 /* dqsPadSettingOverride */
+00000000 /* timeoutInMs */
+64000000 /* commandInterval: 100ns */
+00000000 /* dataValidTime[0/1] */
+00000000 /* busyOffset / busyBitPolarity */
+0304100c /* idx 0: READ CACHE - CMD 0x03, col addr */
+08308024 /* DUMMY 8 cycles, READ 128 bytes */
+00000000
+00000000
+0f04c004 /* idx 1: READ STATUS - CMD 0x0F 0xC0 */
+01240000 /* READ 1 byte */
+00000000
+00000000
+00000000 /* idx 2: reserved (config cmd slot) */
+00000000
+00000000
+00000000
+06040000 /* idx 3: WRITE ENABLE - CMD 0x06 */
+00000000
+00000000
+00000000
+0304100c /* idx 4: READ CACHE ODD */
+08308024
+00000000
+00000000
+d8041808 /* idx 5: ERASE BLOCK - CMD 0xD8, 3-byte row addr */
+00000000
+00000000
+00000000
+00000000 /* idx 6: RESET */
+00000000
+00000000
+00000000
+00000000 /* idx 7: reserved */
+00000000
+00000000
+00000000
+00000000 /* idx 8: reserved */
+00000000
+00000000
+00000000
+0204100c /* idx 9: PROGRAM LOAD - CMD 0x02, col addr, write */
+40200000 /* WRITE 64 bytes */
+00000000
+00000000
+0204100c /* idx 10: PROGRAM LOAD ODD */
+40200000
+00000000
+00000000
+13041808 /* idx 11: READ PAGE - CMD 0x13, 3-byte row addr */
+00000000
+00000000
+00000000
+00000000 /* idx 12: reserved */
+00000000
+00000000
+00000000
+0f04c004 /* idx 13: READ ECC STATUS */
+01240000
+00000000
+00000000
+10041808 /* idx 14: PROGRAM EXECUTE - CMD 0x10, 3-byte row addr */
+00000000
+00000000
+00000000
+00000000 /* idx 15: READ ID */
+00000000
+00000000
+00000000
+00000000 /* lutCustomSeq[12] */
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000 /* reserved4[4] */
+00000000
+00000000
+00000000
+00080000 /* page_data_size: data bytes per page, e.g. 2048 */
+00100000 /* page_total_size: page + OOB (= 2^columnAddressWidth) */
+40000000 /* page_per_block: pages per erase block, e.g. 64 */
+00000000 /* bypass_read_status, bypass_ecc_read, has_multi_plane, skip_odd_blocks */
+00000000 /* ecc_check_custom, ip_cmd_ser_clk_freq, read_page_time_us */
+00000000 /* ecc_status_mask */
+00000000 /* ecc_failure_mask */
+00040000 /* block_per_device: total erase blocks on device, e.g. 1024 */
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000
+00000000

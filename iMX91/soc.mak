@@ -9,6 +9,7 @@ INCLUDE = ./lib
 
 #define the F(Q)SPI header file
 QSPI_HEADER = ../scripts/fspi_header
+SPINAND_HEADER = ../scripts/spinand_header
 QSPI_PACKER = ../scripts/fspi_packer.sh
 QSPI_FCB_GEN = ../scripts/fspi_fcb_gen.sh
 PAD_IMAGE = ../scripts/pad_image.sh
@@ -61,6 +62,12 @@ define append_fcb
 	@dd if=flash.tmp of=flash.bin bs=1k seek=4
 	@rm flash.tmp
 	@echo "Append FCB to flash.bin"
+endef
+
+define append_spinand_fcb
+	@cat fcb.bin flash.bin > flash.bin.tmp
+	@mv flash.bin.tmp flash.bin
+	@echo "Append SPINAND FCB to flash.bin"
 endef
 
 FORCE:
@@ -154,6 +161,9 @@ u-boot-atf-container-spinand.img: bl31.bin u-boot-hash.bin
 fcb.bin: FORCE
 	./$(QSPI_FCB_GEN) $(QSPI_HEADER)
 
+fcb_spinand.bin: FORCE
+	./$(QSPI_FCB_GEN) $(SPINAND_HEADER)
+
 flash_fw.bin: FORCE
 	@$(MAKE) --no-print-directory -f soc.mak flash_singleboot
 	@mv -f flash.bin $@
@@ -224,6 +234,12 @@ flash_singleboot_spinand: $(MKIMG) $(AHAB_IMG) $(SPL_A55_IMG) u-boot-atf-contain
 
 flash_singleboot_spinand_fw: flash_fw.bin
 	@mv -f flash_fw.bin flash.bin
+
+flash_singleboot_spinand_customhdr: $(MKIMG) $(AHAB_IMG) $(SPL_A55_IMG) u-boot-atf-container-spinand.img flash_fw.bin fcb_spinand.bin
+	./$(MKIMG) -soc IMX9 -dev nand 4K -append $(AHAB_IMG) -c \
+		   -ap $(SPL_A55_IMG) a55 $(SPL_LOAD_ADDR) -out flash.bin
+	$(call append_container,u-boot-atf-container-spinand.img,4)
+	$(call append_spinand_fcb)
 
 flash_singleboot_qb: $(MKIMG) $(AHAB_IMG) u-boot-spl-ddr-qb.bin u-boot-atf-container.img
 	./$(MKIMG) -soc IMX9 -append $(AHAB_IMG) -c -ap u-boot-spl-ddr-qb.bin a55 $(SPL_LOAD_ADDR) -out flash.bin
