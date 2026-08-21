@@ -391,7 +391,7 @@ flash_sm_no_ahabfw: $(MKIMG) $(MCU_IMG) $(OEI_IMG_M33)
 flash_m70: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M70_IMG) $(OEI_IMG_M33)
 	./$(MKIMG) -soc IMX9 -cntr_version 2 $(MMC_FAST_HASH) -append $(AHAB_IMG) -c $(OEI_OPT_M33) -msel $(MSEL) \
 		   -m33 $(MCU_IMG) 0 $(MCU_TCM_ADDR) \
-		   -m7 $(M70_IMG) 0 $(M70_TCM_ADDR) $(M70_TCM_ADDR_ALIAS) -out flash.bin
+		   -m7 $(M70_IMG) 0 $(M70_TCM_ADDR) $(M70_TCM_ADDR_ALIAS) $(V2X_DUMMY) -out flash.bin
 
 flash_m70_xspi: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M70_IMG) $(OEI_IMG_M33) fcb.bin
 	./$(MKIMG) -soc IMX9 -cntr_version 2 $(XSPI_FAST_HASH) -append $(AHAB_IMG) -dev flexspi -c $(OEI_OPT_M33) -msel $(MSEL) \
@@ -443,7 +443,7 @@ flash_m70_ddr_xspi_oem_fastboot: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M70_IMG) $(OE
 flash_m71: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M71_IMG) $(OEI_IMG_M33)
 	./$(MKIMG) -soc IMX9 -cntr_version 2 $(MMC_FAST_HASH) -append $(AHAB_IMG) -c $(OEI_OPT_M33) -msel $(MSEL) \
 		   -m33 $(MCU_IMG) 0 $(MCU_TCM_ADDR) \
-		   -m7 $(M71_IMG) 1 $(M71_TCM_ADDR) $(M71_TCM_ADDR_ALIAS) -out flash.bin
+		   -m7 $(M71_IMG) 1 $(M71_TCM_ADDR) $(M71_TCM_ADDR_ALIAS) $(V2X_DUMMY) -out flash.bin
 
 flash_m71_xspi: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M71_IMG) $(OEI_IMG_M33) fcb.bin
 	./$(MKIMG) -soc IMX9 -cntr_version 2 $(XSPI_FAST_HASH) -append $(AHAB_IMG) -dev flexspi -c $(OEI_OPT_M33) -msel $(MSEL) \
@@ -492,7 +492,7 @@ flash_m70_m71_no_ahabfw_xspi: $(MKIMG) $(MCU_IMG) $(M70_IMG) $(M71_IMG) $(OEI_IM
 flash_m33s: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M33S_IMG) $(OEI_IMG_M33)
 	./$(MKIMG) -soc IMX9 -cntr_version 2 $(CNTR_FLAG) -append $(AHAB_IMG) -c $(OEI_OPT_M33) -msel $(MSEL) \
 		   -m33 $(MCU_IMG) 0 $(MCU_TCM_ADDR) \
-		   -m33 $(M33S_IMG) 1 $(M33S_TCM_ADDR) $(M33S_TCM_ADDR_ALIAS) -out flash.bin
+		   -m33 $(M33S_IMG) 1 $(M33S_TCM_ADDR) $(M33S_TCM_ADDR_ALIAS) $(V2X_DUMMY) -out flash.bin
 
 flash_m33s_ddr: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M33S_IMG) $(OEI_IMG_M33)
 	./$(MKIMG) -soc IMX9 -cntr_version 2 $(MMC_FAST_HASH) -append $(AHAB_IMG) -c $(OEI_OPT_M33) -msel $(MSEL) \
@@ -552,7 +552,7 @@ flash_m33s_m70_m71: $(MKIMG) $(AHAB_IMG) $(MCU_IMG) $(M33S_IMG) $(M70_IMG) $(M71
 		   -m33 $(MCU_IMG) 0 $(MCU_TCM_ADDR) \
 		   -m33 $(M33S_IMG) 1 $(M33S_TCM_ADDR) $(M33S_TCM_ADDR_ALIAS) \
 		   -m7 $(M70_IMG) 0 $(M70_TCM_ADDR) $(M70_TCM_ADDR_ALIAS)  \
-		   -m7 $(M71_IMG) 1 $(M71_TCM_ADDR) $(M71_TCM_ADDR_ALIAS) -out flash.bin
+		   -m7 $(M71_IMG) 1 $(M71_TCM_ADDR) $(M71_TCM_ADDR_ALIAS) $(V2X_DUMMY) -out flash.bin
 
 flash_m33s_m70_m71_no_ahabfw: $(MKIMG) $(MCU_IMG) $(M33S_IMG) $(M70_IMG) $(M71_IMG) $(OEI_IMG_M33)
 	./$(MKIMG) -soc IMX9 -cntr_version 2 $(CNTR_FLAG) -c $(OEI_OPT_M33) -msel $(MSEL) \
